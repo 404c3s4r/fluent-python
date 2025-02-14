@@ -1,0 +1,14 @@
+C# ou java utilizam objeto.len() enquanto o python usa len(objeto);
+Esse comportamento acontece devido ao modelo de dados do python API;
+O que acontece na prática é que o interpretador ele chama metódos como objeto.__len__();
+Ou seja, usamos sintaxe de alto nível( mais próxima da nossa linguagem e o interpretador cuida do resto);
+O modelo de dados nada mais é que a formalização das interfaces de blocos de construção da própria linguagem; 
+
+O que usamos: 
+    Acesso[chave] 
+O que o interpretador faz: 
+    Acesso__getitem__(chave)
+
+
+Usamos metódos quando queremos interagir com o objeto para:
+    

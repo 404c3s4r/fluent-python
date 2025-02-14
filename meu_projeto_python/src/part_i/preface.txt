@@ -1,0 +1,56 @@
+Here’s the plan: when someone uses a feature you don’t understand, simply shoot
+them. This is easier than learning something new, and before too long the only living
+coders will be writing in an easily understood, tiny subset of Python 0.9.6 <wink>.1
+—Tim Peters, legendary core developer and author of The Zen of Python
+
+
+
+Objetivo do livro:
+Apresentar recursos exclusivos do Python, como desempacotamento de tuplas e descritores.
+
+Motivo:
+Os recursos do Python são subutilizados porque programadores tendem a procurar no Python aquilo que já conhecem de outras linguagens.
+
+
+
+Data Structures: PART I:
+
+    Special Methods (__repr__)
+    Sequences, Mappings, and Sets
+    str vs bytes (Python 3 vs Python 2)
+    @dataclass decorator
+    Named Tuples
+
+
+Part II, “Functions as Objects”:
+
+    Functions as first-class objects
+    Design patterns and decorators
+    Closures, function attributes, and introspection
+    Parameter annotations and the nonlocal statement (Python 3)
+    Type hints in function signatures
+
+Part III, “Classes and Protocols”:
+
+    Manual class construction
+    Collections, abstract base classes (ABCs), and protocols
+    Multiple inheritance and operator overloading
+    Type hints (continued)
+
+Part IV, “Control Flow”:
+
+    Generators, context managers, and coroutines
+    yield from syntax
+    Pattern matching (Chapter 18)
+    Concurrency and parallelism models in Python (Chapter 19)
+    Asynchronous programming with async def, await, async for, async with, and asyncio
+
+Part V, “Metaprogramming”:
+
+    Classes with dynamically created attributes (semi-structured data like JSON)
+    Properties and descriptors
+    Functions, methods, and descriptors
+    Implementing a field validation library
+    Class decorators and metaclasses
+
+

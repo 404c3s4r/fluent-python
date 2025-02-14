@@ -1,0 +1,4 @@
+Here’s the plan: when someone uses a feature you don’t understand, simply shoot
+them. This is easier than learning something new, and before too long the only living
+coders will be writing in an easily understood, tiny subset of Python 0.9.6 <wink>.1
+—Tim Peters
