@@ -1,0 +1,22 @@
+"“What is the difference between __str__ and __repr__ in
+Python?” is a Stack Overflow question with excellent contributions
+from Pythonistas Alex Martelli and Martijn Pieters." 
+
+
+
+
+
+"Programmers with prior experience in languages with a toString
+method tend to implement __str__ and not __repr__. If you only
+implement one of these special methods in Python, choose
+__repr__." 
+
+
+
+
+Leitura:  https://docs.python.org/pt-br/3.9/reference/datamodel.html
+
+
+Leitura: Python in a Nutshell, 3ª ed., de Alex Martelli, Anna Ravenscroft e Steve Holden (O'Reilly), possui uma excelente cobertura do modelo de dados.
+Leitura: David beazley - Python essential reference;
+Leitura: David Beazley - Python Cookbook: Recipes for Mastering Python 3 3rd Edition;

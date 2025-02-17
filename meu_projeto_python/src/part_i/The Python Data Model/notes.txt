@@ -1,14 +1,23 @@
 C# ou java utilizam objeto.len() enquanto o python usa len(objeto);
 Esse comportamento acontece devido ao modelo de dados do python API;
-O que acontece na prática é que o interpretador ele chama metódos como objeto.__len__();
+O que acontece na prática é que o interpretador ele chama metódos especiais como objeto.__len__();
 Ou seja, usamos sintaxe de alto nível( mais próxima da nossa linguagem e o interpretador cuida do resto);
 O modelo de dados nada mais é que a formalização das interfaces de blocos de construção da própria linguagem; 
+Os nomes dos métodos especiais tem sempre 2 sublinhados no inicio e no fim; 
+
+
 
 O que usamos: 
     Acesso[chave] 
 O que o interpretador faz: 
     Acesso__getitem__(chave)
 
+Otimização em Tipos Built-in:
+    str, list e bytearray não chamam o método __len__, ao invés disso eles 
+    armazenam o tamanho no ob_size da memória.
 
-Usamos metódos quando queremos interagir com o objeto para:
-    
+Chamadas diretas dos métodos especiais devem ser evitadas porque as funções embutidas (len, iter, str, etc.) são mais rápidas e oferecem mais recursos.
+Só use chamadas diretas se estiver fazendo metaprogramação ou precisar de um comportamento específico.
+O interpretador Python é o único que chama frequentemente a maioria dos métodos especiais
+
+O método __str__ é chamado pela função str(), usada implicitamente pela função print; 

@@ -2,3 +2,195 @@ Here’s the plan: when someone uses a feature you don’t understand, simply sh
 them. This is easier than learning something new, and before too long the only living
 coders will be writing in an easily understood, tiny subset of Python 0.9.6 <wink>.1
 —Tim Peters
+
+Abstract Base Classes 
+
+''' Biblioteca collections.abc organizam as coleções e o interpretador as utiliza. Elas definem interfaces que o interpretador 
+do Python usa internamente para determinar como certos objetos devem se comportar'''
+
+# Hierarquia das Coleções em Python (collections.abc)
+
+## Introdução
+Python define várias classes abstratas para representar diferentes tipos de coleções.  
+
+## 1. Classes Básicas:
+
+### - **Iterable** (`__iter__`)
+  - Permite iteração sobre os elementos do objeto usando `for item in obj`
+  - Exemplo:
+    ```python
+    class MeuIteravel:
+        def __iter__(self):
+            return iter([1, 2, 3])
+
+    obj = MeuIteravel()
+    for item in obj:
+        print(item)  # Saída: 1, 2, 3
+    ```
+
+### - **Sized** (`__len__`)
+  - Define um tamanho para a coleção, permitindo o uso de `len(obj)`
+  - Exemplo:
+    ```python
+    class MeuObjeto:
+        def __len__(self):
+            return 10
+
+    obj = MeuObjeto()
+    print(len(obj))  # Saída: 10
+    ```
+
+### - **Container** (`__contains__`)
+  - Permite verificar se um item está na coleção usando `item in obj`
+  - Exemplo:
+    ```python
+    class MeuContainer:
+        def __contains__(self, item):
+            return item == "Python"
+
+    obj = MeuContainer()
+    print("Python" in obj)  # Saída: True
+    print("Java" in obj)    # Saída: False
+    ```
+
+### - **Reversible** (`__reversed__`)
+  - Permite reverter a ordem dos elementos com `reversed(obj)`
+  - Exemplo:
+    ```python
+    class MeuReversivel:
+        def __reversed__(self):
+            return iter([3, 2, 1])
+
+    obj = MeuReversivel()
+    print(list(reversed(obj)))  # Saída: [3, 2, 1]
+    ```
+
+---
+
+## 2. A Classe `Collection`
+A classe `Collection` foi introduzida no **Python 3.6** e combina `Iterable`, `Sized` e `Container`.  
+Ou seja, se um objeto herda de `Collection`, ele automaticamente suporta `len()`, `in` e `for item in obj`.
+
+---
+
+## 3. Classes Derivadas:
+
+### - **Sequence (Lista-like)**
+  - Representa objetos que se comportam como listas (`list`, `tuple`).
+  - Métodos principais:
+    - `__getitem__`
+    - `__contains__`
+    - `__iter__`
+    - `__reversed__`
+    - `index`
+    - `count`
+
+  - Exemplo:
+    ```python
+    from collections.abc import Sequence
+
+    class MinhaLista(Sequence):
+        def __init__(self, dados):
+            self._dados = dados
+
+        def __getitem__(self, index):
+            return self._dados[index]
+
+        def __len__(self):
+            return len(self._dados)
+
+    obj = MinhaLista([10, 20, 30])
+    print(obj[1])  # Saída: 20
+    print(30 in obj)  # Saída: True
+    ```
+
+---
+
+### - **Mapping (Dicionário-like)**
+  - Representa objetos que se comportam como dicionários (`dict`).
+  - Métodos principais:
+    - `__getitem__`
+    - `__contains__`
+    - `__eq__`, `__ne__`
+    - `get`
+    - `items`, `keys`, `values`
+
+  - Exemplo:
+    ```python
+    from collections.abc import Mapping
+
+    class MeuDicionario(Mapping):
+        def __init__(self, dados):
+            self._dados = dados
+
+        def __getitem__(self, chave):
+            return self._dados[chave]
+
+        def __iter__(self):
+            return iter(self._dados)
+
+        def __len__(self):
+            return len(self._dados)
+
+    obj = MeuDicionario({"a": 1, "b": 2})
+    print(obj["a"])  # Saída: 1
+    print("b" in obj)  # Saída: True
+    ```
+
+---
+
+### - **Set (Conjunto-like)**
+  - Representa objetos que se comportam como conjuntos (`set`).
+  - Métodos principais:
+    - `isdisjoint`
+    - `__le__`, `__lt__`, `__gt__`, `__ge__`
+    - `__eq__`, `__ne__`
+    - `__and__`, `__or__`, `__sub__`, `__xor__`
+
+  - Exemplo:
+    ```python
+    from collections.abc import Set
+
+    class MeuConjunto(Set):
+        def __init__(self, elementos):
+            self._elementos = set(elementos)
+
+        def __contains__(self, item):
+            return item in self._elementos
+
+        def __iter__(self):
+            return iter(self._elementos)
+
+        def __len__(self):
+            return len(self._elementos)
+
+    obj = MeuConjunto([1, 2, 3])
+    print(2 in obj)  # Saída: True
+    print(5 in obj)  # Saída: False
+    ```
+
+---
+
+## Conclusão:
+- Essas classes ajudam a criar objetos personalizados que se comportam como listas, dicionários e conjuntos.
+- Se um objeto implementa os métodos dessas classes, ele pode ser usado com `len()`, `in`, `for item in obj`
+- O módulo `collections.abc` facilita a criação; 
+- Python não exige que nenhum classe herde ABC collections, porém se a classe tiver len(), ele é considerado sized. 
+
+- A penassequence são consideradas como reversiveis; Mantém uma ordem dos elementos; 
+- Mapping e set não reversíveis; suportam ordem definidas; 
+- Dicionários as chaves possuem ordem desde o python 3.7, mas os valores não permite ser reversíveis; 
+- Sequence: formaliza a interface de tipos embutidos como list e str;
+- Mapping: implementada por dict, collections.defaultdict, etc.
+- Set: a interface dos tipos embutidos set e frozenset;
+- Funções embutidas como str, list e len, tuplas não chamam métodos especiais, o comprimento é simplesmente lido de um campo em uma estrutura C; 
+- Pythonic: Expressão usada quando usamos métodos especiais para se comportar como tipos embutidos; 
+- __repr__ e __str__: Um requisito básico para o python é fornecer strings utilizaveis para loog e usuários finais; 
+-  aritméticos infixos (como +, -, *, /)
+
+
+
+
+
+
+
